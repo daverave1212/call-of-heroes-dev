@@ -1,10 +1,11 @@
-import { addArrays, addManyObjects, addObjects, areArraysEqual, generateUniqueId, getAlMyRaceAndClassSpells, getAllArmorsByName, getAllClasses, getAllSkillsByName, getAllSpellsByName, getAllWeaponsByName, getExtrasFromSpells, getLocalStorageJSON, setLocalStorageJSON, sum, useLocalStorageState } from "../../../utils"
+import { addArrays, addManyObjects, addObjects, areArraysEqual, generateUniqueId, getAlMyRaceAndClassSpells, getAllArmorsByName, getAllClasses, getAllSkillsByName, getAllSpellsByName, getAllWeaponsByName, getDefaultRaceAndClassSpellNames, getExtrasFromSpells, getLocalStorageJSON, setLocalStorageJSON, sum, useLocalStorageState } from "../../../utils"
 import * as Database from '../../../services/online-database/Database'
 import { useEffect } from "react"
 import { getUserState, useAuth } from "../../../services/auth/Auth"
 import { calculateAllAtributes, DEFAULT_CHARACTER_BONUSES, DEFAULT_STAT_ARRAY, getAllStatBonusesYMLAsObjFromSpellsArray, getStatBonusObjByPointsInvested, getStatsArrayFromObject, getStatValueByName, STAT_NAMES } from "../../../services/game-lib/stat-calculations"
 import { Names } from "../../../services/NameGenerator/name-generator"
 import { showToast } from "../../../services/dom/toaster"
+import { useConstAllSpellsByName } from "../../../services/content-providers/SpellProvider"
 
 export const NO_CHARACTER_ID = 'none'
 function getNewCharacterTemplate() {
@@ -418,14 +419,25 @@ export function useConstAllMyAbilities() {
     let [selectedClassName] = useSectionClassName()
     let [selectedSpecName] = useSectionClassSpecName()
 
-    const rcSpells = getAlMyRaceAndClassSpells({
+    let allSpells = useConstAllSpellsByName()
+
+    const defaultAbilityNames = getDefaultRaceAndClassSpellNames({
         raceName: selectedRaceName,
         className: selectedClassName,
         specName: selectedSpecName
     })
-    const selectedAbilities = selectedAbilityNames.map(name => getAllSpellsByName()[name])
-    // console.log({selectedAbilities, selectedAbilityNames})
-    return [...rcSpells, ...selectedAbilities].filter(spell => spell != null)
+    const allMyAbilityNames = [...defaultAbilityNames, ...selectedAbilityNames]
+    const allMyAbilities = allMyAbilityNames.map(name => allSpells[name]).filter(s => s != null)
+    return allMyAbilities
+
+    // const rcSpells = getAlMyRaceAndClassSpells({
+    //     raceName: selectedRaceName,
+    //     className: selectedClassName,
+    //     specName: selectedSpecName
+    // })
+    // const selectedAbilities = selectedAbilityNames.map(name => getAllSpellsByName()[name])
+    // // console.log({selectedAbilities, selectedAbilityNames})
+    // return [...rcSpells, ...selectedAbilities].filter(spell => spell != null)
 }
 export function useConstBonusesFromSpellsAndItems() {
     let [armorNames] = useArmors()

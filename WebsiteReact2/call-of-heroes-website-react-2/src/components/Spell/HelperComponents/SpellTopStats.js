@@ -3,6 +3,8 @@ import { getSpellTags } from '../../../utils';
 import Icon from '../../Icon';
 import KeywordTag from './KeywordTag';
 
+import './SpellTopStats.css'
+
 export function SpellTopStats({ className, tags, keywords }) {
     const { A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP, Name } = tags;
     

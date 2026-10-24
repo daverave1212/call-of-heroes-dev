@@ -252,8 +252,11 @@ export default function Spell(props) {
                     </>
                 ): (<>
                     { renderedSpellTop }
-                    {/* { IsSubspell != false && <Separator hasNoMarginTop={true}/> } */}
-                    { IsSubspell != false && <SeparatorFancy/> }
+                    { IsSubspell != false && <Separator hasNoMarginTop={true} style={{
+                        paddingTop: '0.5rem',
+                        paddingBottom: '0.5rem'
+                    }}/> }
+                    {/* { IsSubspell != false && <SeparatorFancy/> } */}
                 </>) }
 
                 <div className='spell-effects-box flex column gap-1'>

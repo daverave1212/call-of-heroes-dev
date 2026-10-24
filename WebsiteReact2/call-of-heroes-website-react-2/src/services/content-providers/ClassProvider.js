@@ -20,11 +20,11 @@ import Cursewielder from '../../databases/ClassesV2/Cursewielder.json'
 import cache from '../data-caching/cache'
 
 import OverallData from '../../databases/OverallData.json'
-import { getSetFeatureId, getSetLiveVersionAsync, getSetsConfigAsync, isNewer, isSetFreeAsync, isSetPremiumAsync } from '../../utils'
+import { getAllSpellsByNameFromObject, getFileName, getSetFeatureId, getSetLiveVersionAsync, getSetsConfigAsync, getSetsConfigNoBasicAsync, isNewer, isSetFreeAsync, isSetPremiumAsync } from '../../utils'
 import { doIOwnSetAsync, isSetUnavailableAsync } from '../auth/Auth'
 import { getDocInCollection } from '../online-database/Database'
-import { FEATURES, getFeatureItemAsync } from './ContentProvider'
-
+import { FEATURES, getFeatureItemAsync, getFeatureItemLocal } from './ContentProvider'
+import { useEffect, useState } from 'react'
 
 export const ClassesBase = {
     Cleric,
@@ -61,4 +61,67 @@ export function classExists(name) {
 }
 export async function getClassAsync(name) {
     return await getFeatureItemAsync(FEATURES.Classes, name)
+}
+
+let _allClassSpellsCached = null;
+let _allClassSpellsPromise = null;
+export function useConstAllClassSpellsByName() {
+    const [spells, setSpells] = useState(() => {
+        if (_allClassSpellsCached) return _allClassSpellsCached;
+
+        const allSpells = {};
+
+        for (const className of getAllClassNames()) {
+            const classObj = getFeatureItemLocal(FEATURES.Classes, className);
+
+            if (classObj) {
+                Object.assign(allSpells, getAllSpellsByNameFromObject(classObj));
+            }
+        }
+
+        return allSpells;
+    });
+
+    useEffect(() => {
+        if (_allClassSpellsCached) {
+            setSpells(_allClassSpellsCached);
+            return;
+        }
+
+        let cancelled = false;
+
+        if (!_allClassSpellsPromise) {
+            _allClassSpellsPromise = Promise.all(
+                getAllClassNames().map(className =>
+                    getFeatureItemAsync(FEATURES.Classes, className)
+                )
+            ).then(classes => {
+                const allSpells = {};
+
+                for (const classObj of classes) {
+                    if (!classObj) continue;
+
+                    Object.assign(allSpells, getAllSpellsByNameFromObject(classObj));
+                }
+
+                _allClassSpellsCached = allSpells;
+                return allSpells;
+            }).catch(error => {
+                _allClassSpellsPromise = null;
+                throw error;
+            });
+        }
+
+        _allClassSpellsPromise
+            .then(result => {
+                if (!cancelled) setSpells(result);
+            })
+            .catch(console.error);
+
+        return () => {
+            cancelled = true;
+        };
+    }, []);
+
+    return spells;
 }

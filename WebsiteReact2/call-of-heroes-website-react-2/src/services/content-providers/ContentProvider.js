@@ -18,7 +18,7 @@ export const FEATURES = {
 }
 
 
-export async function featureItemExists(featureName, itemName) {
+export function featureItemExists(featureName, itemName) {
     console.log(`Checking feature item ${featureName} ${itemName} exists...`)
     switch (featureName) {
         case 'races': return raceExists(itemName)
@@ -47,7 +47,7 @@ export function getFeatureItemLocal(featureName, itemName) {
 // E.g: getFeatureItemAsync("other", "Monsters")
 // E.g: getFeatureItemAsync("items", "MagicItems")
 export async function getFeatureItemAsync(featureName, name) {
-    console.log(`Getting ${featureName} ${name}`)
+    console.log(`Getting(${featureName}, ${name})`)
     if (!featureItemExists(featureName, name)) {
         console.log('...not exist')
         return null
@@ -55,6 +55,10 @@ export async function getFeatureItemAsync(featureName, name) {
 
     console.log(`  ✅ Exists`)
     const itemLocalVersion = getFeatureItemLocal(featureName, name)
+    if (itemLocalVersion == null) {
+        console.error(`ERROR: getFeatureItemLocal(${featureName}, ${name}) is null!`)
+        return {}
+    }
     switch (featureName) {
         // Normal
         case 'races':
@@ -64,7 +68,7 @@ export async function getFeatureItemAsync(featureName, name) {
             const iOwnSet = await doIOwnSetAsync(setName)
         
             if (!isPremium) {
-                console.log({itemLocalVersion, Set: itemLocalVersion.Set, set: itemLocalVersion.set})
+                // console.log({itemLocalVersion, Set: itemLocalVersion.Set, set: itemLocalVersion.set})
                 console.green(`  ❌ Set ${setName} not premium`)
                 return itemLocalVersion
             }

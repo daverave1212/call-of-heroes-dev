@@ -29,6 +29,8 @@ import ManySpells, { SpellSortTypes } from "./components/Spell/ManySpells"
 import SpellPDF from "./components/Spell/SpellPDF"
 import TwoColumns from "./components/TwoColumns/TwoColumns"
 import TableNormal from "./components/TableNormal/TableNormal"
+import { getRaceLocal } from "./services/content-providers/RaceProvider"
+import { getClassLocal } from "./services/content-providers/ClassProvider"
 
 // ---------------- Spells Utilities ----------------
 const SPELL_PROPS_TO_PARSE = [
@@ -244,6 +246,11 @@ export function getAllSpellsFromCategoriesObject(spellCategoriesObject) {
     }
     return spells
 }
+export function getAllFeatsByName() {
+    const featsArr = getAllSpellsFromCategoriesObject(Feats)
+    const featsObj = Object.fromEntries(featsArr.map(feat => [removeTildes(feat.Name), feat]))
+    return featsObj
+}
 export function getSpellReplacementName(obj) {
     if (obj.Replacement == null) {
         return null
@@ -270,6 +277,15 @@ export function getAllBasicSpellsAsArray() {
 }
 export function getAllFontSpellsAsArray() {
     return Object.values(SpellFonts).map(category => spellsFromObject(category)).flat()
+}
+let fontSpellsByNameCached = null
+export function getAllFontSpellsByName() {
+    if (fontSpellsByNameCached != null) {
+        return fontSpellsByNameCached
+    }
+    const spellsArray = getAllFontSpellsAsArray()
+    const spellsObj = Object.fromEntries(spellsArray.map(spell => [removeTildes(spell.Name), spell]))
+    return spellsObj
 }
 let allSpellsArrayCached = null
 export function getAllSpellsAsArray() {
@@ -703,7 +719,50 @@ export function getSpellTopStatsIconsAndSpans(spell) {
     const statsArraySorted = sortObjectArrayByKeyInOrder(statsArray, 'name', VALID_SPELL_TOP_STATS) // VALID_SPELL_TOP_STATS is the correct order
     return statsArraySorted
 }
+export function isSpellName(dictKey) {
+    return typeof dictKey === 'string' && (dictKey.startsWith('~') || dictKey.startsWith('<'));
+}
+export function looksLikeSpell(key, value) {
+    if (isSpellName(key)) {
+        return true
+    }
+    if (value == null) {
+        return false
+    }
 
+    if (value.Effect != null && !isString(value.Effect)) {  // If it's not a string but still looks like a spell...
+        return false
+    }
+
+    return value.Effect != null || value.A != null || value.Price != null || value.EffectGreen != null || value.IsSpell == true
+}
+export function forEachFoundAbility(obj, keyValueFunc, parentKey=null) {
+    if (obj == null) {
+        return
+    }
+    if (typeof obj !== 'object' || Array.isArray(obj)) {
+        return
+    }
+    for (const [key, value] of Object.entries(obj)) {
+        if (value == null || typeof value === 'string') {
+            continue
+        } else if (looksLikeSpell(key, value)) {
+            keyValueFunc(key, value, parentKey)
+        } else if (isObject(value)) {
+            forEachFoundAbility(value, keyValueFunc, key)
+        }
+    }
+}
+export function getAllSpellsByNameFromObject(obj) {
+    const spells = {};
+
+    forEachFoundAbility(obj, (name, body) => {
+        const cleanName = name.replace(/[~<>]/g, "").trim();
+        spells[cleanName] = body;
+    });
+
+    return spells;
+}
 
 
 
@@ -731,6 +790,21 @@ export async function getSetsConfigAsync() {
     setsConfig = cfg
     return setsConfig
 }
+export async function getSetsConfigNoBasicAsync() {
+    const setsConfig = await getSetsConfigAsync()
+    delete setsConfig.basic
+    return setsConfig
+}
+export async function getSetFileNamesAsync(folderNameFilter) {
+    const setsConfig = await getSetsConfigAsync()
+    return Object.entries(setsConfig)
+        .filter(([setId]) => setId !== "basic")
+        .flatMap(([, set]) =>
+            set.fileNames.filter(path =>
+                path.split("/").includes(folderNameFilter)
+            )
+        );
+}
 export function useConstSetsConfig() {
     const [setConfig, setSetConfig] = useState({})
 
@@ -741,7 +815,9 @@ export function useConstSetsConfig() {
     }, [])
 
     return setConfig
-
+}
+export function getFileName(path) {
+    return path.split(/[\\/]/).pop().replace(/\.[^.]+$/, "");
 }
 export async function getSetLiveVersionAsync(setName) {
     return (await getSetsConfigAsync()).versions[setName]
@@ -2770,6 +2846,24 @@ export function getSpecRepresentativeIconFullPath(classObj, specName) {
     const firstSpellName = Object.keys(specObject['Starting Abilities'])[0]
     const spellName = removeTildes(firstSpellName)
     return getSpellIconPathByName(spellName)
+}
+
+export function getDefaultRaceAndClassSpellNames({ raceName, className, specName }) {
+    
+    const myRace = getRaceLocal(raceName)
+    const myClass = getClassLocal(className)
+    const mySpec = myClass?.Specs?.[specName]
+
+    const myRaceBaseSpellNames = myRace == null? []: spellsFromObject(myRace['Starting Abilities']).map(s => removeTildes(s.Name))
+    const myClassBaseSpellNames = myClass == null? []: spellsFromObject(myClass['Starting Abilities']).map(s => removeTildes(s.Name))
+    const mySpecBaseSpellNames = mySpec == null? []: spellsFromObject(mySpec['Starting Abilities']).map(s => removeTildes(s.Name))
+
+    return [
+        ...myRaceBaseSpellNames,
+        ...myClassBaseSpellNames,
+        ...mySpecBaseSpellNames
+    ]
+
 }
 export function getAlMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames=[], selectedRaceSpellNames=[] }) {
     const allSpells = getAllSpellsByName()
