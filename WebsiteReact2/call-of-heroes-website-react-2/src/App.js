@@ -110,6 +110,7 @@ import Blog from './pages/Meta/Blog.js';
 import BlogPage from './pages/Meta/BlogPage.js';
 import CookiesPopup from './components/CookiesPopup/CookiesPopup.js';
 import TransitionGuidePage from './pages/Learn/TransitionGuidePage.js';
+import InstagramSpell from './pages/Meta/Marketing/InstagramSpell.js';
 
 function App() {
 
@@ -224,6 +225,8 @@ function App() {
           <Route path='/Meta/Griffincraft' element={ <Griffincraft/> }/>
           <Route path='/Meta/Blog' element={ <Blog/> }/>
           <Route path='/Meta/BlogPage' element={ <BlogPage/> }/>
+          
+          <Route path='/Meta/Marketing/InstagramSpell' element={ <InstagramSpell/> }/>
           
           <Route path='/Shop/Buy' element={ <Buy/> }/>
           
