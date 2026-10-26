@@ -19,11 +19,10 @@ import Cursewielder from '../../databases/ClassesV2/Cursewielder.json'
 
 import cache from '../data-caching/cache'
 
-import OverallData from '../../databases/OverallData.json'
 import { getAllSpellsByNameFromObject, getFileName, getSetFeatureId, getSetLiveVersionAsync, getSetsConfigAsync, getSetsConfigNoBasicAsync, isNewer, isSetFreeAsync, isSetPremiumAsync } from '../../utils'
 import { doIOwnSetAsync, isSetUnavailableAsync } from '../auth/Auth'
 import { getDocInCollection } from '../online-database/Database'
-import { FEATURES, getFeatureItemAsync, getFeatureItemLocal } from './ContentProvider'
+import { FEATURES, getFeatureItemAsync, getFeatureItemLocal, useFeatureItem } from './ContentProvider'
 import { useEffect, useState } from 'react'
 
 export const ClassesBase = {
@@ -51,16 +50,34 @@ export const Classes = {
 }
 
 export function getAllClassNames() {
-    return OverallData.Classes
+    return Object.keys(Classes)
+}
+export function getAllBaseClassNames() {
+    return Object.keys(ClassesBase)
+}
+export function getAllPremiumClassNames() {
+    return Object.keys(ClassesPremium)
 }
 export function getClassLocal(name) {
     return Classes[name]
 }
 export function classExists(name) {
-    return OverallData.Classes.includes(name)
+    return getAllClassNames().includes(name)
 }
 export async function getClassAsync(name) {
     return await getFeatureItemAsync(FEATURES.Classes, name)
+}
+
+export function getAllClassSpellsByNameLocal() {    // NOTE: This will not work for all spells all the time; if there's a cached obj, it returns it with potentially more spells!
+    if (_allClassSpellsCached != null) {
+        return _allClassSpellsCached
+    }
+    let spells = {}
+    for (const classObj of Object.values(Classes)) {
+        spells = {...spells, ...getAllSpellsByNameFromObject(classObj)}
+    }
+
+    return spells
 }
 
 let _allClassSpellsCached = null;
@@ -124,4 +141,36 @@ export function useConstAllClassSpellsByName() {
     }, []);
 
     return spells;
+}
+export async function getAllClassSpellsByNameAsync() {
+    if (_allClassSpellsCached) {
+        return _allClassSpellsCached;
+    }
+
+    if (!_allClassSpellsPromise) {
+        _allClassSpellsPromise = Promise.all(
+            getAllClassNames().map(className =>
+                getFeatureItemAsync(FEATURES.Classes, className)
+            )
+        ).then(classes => {
+            const allSpells = {};
+
+            for (const classObj of classes) {
+                if (!classObj) continue;
+
+                Object.assign(
+                    allSpells,
+                    getAllSpellsByNameFromObject(classObj)
+                );
+            }
+
+            _allClassSpellsCached = allSpells;
+            return allSpells;
+        }).catch(error => {
+            _allClassSpellsPromise = null;
+            throw error;
+        });
+    }
+
+    return _allClassSpellsPromise;
 }

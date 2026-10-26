@@ -153,16 +153,56 @@ export function capitalizeFirstLetter(str) {
   if (!str) return ""; // Handle empty string or null
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
+export function removeAllSpellTildes(obj) {
+    if (obj == null || typeof obj !== 'object') {
+        return obj;
+    }
+
+    if (Array.isArray(obj)) {
+        return obj.map(removeTildes);
+    }
+
+    const result = {};
+
+    for (const [key, value] of Object.entries(obj)) {
+        const newKey = looksLikeSpell(key, value)
+            ? key.replace(/[~<>]/g, '')
+            : key;
+
+        result[newKey] = removeTildes(value);
+    }
+
+    return result;
+}
+
 export function getFileName(filePath) {
   // Extract filename with extension from full path
   const basename = path.basename(filePath);
   // Remove the extension
   return path.basename(basename, path.extname(basename));
 }
+export function removeTildes(spellName) {
+    if (!isString(spellName)) {
+        return spellName
+    }
+    if (spellName.startsWith('~') || spellName.startsWith('<'))
+        return spellName.substring(1, spellName.length - 1)
+    return spellName
+}
 
 // ----------- QUESTGUARD UTILS ------------
+export function looksLikeXML(str) {
+    if (typeof str !== 'string') return false;
+
+    return /<([a-zA-Z][\w:-]*)\b[^>]*>[\s\S]*?<\/\1\s*>|<([a-zA-Z][\w:-]*)\b[^>]*\/>/.test(str);
+}
 export function isSpellName(dictKey) {
-    return typeof dictKey === 'string' && (dictKey.startsWith('~') || dictKey.startsWith('<'));
+    if (!isString(dictKey)) {
+        return false
+    }
+    return !looksLikeXML(dictKey) && (
+        typeof dictKey === 'string' && (dictKey.startsWith('~') || dictKey.startsWith('<'))
+    );
 }
 export function looksLikeSpell(key, value) {
     if (isSpellName(key)) {
@@ -423,15 +463,24 @@ export function forEachFoundAbility(obj, keyValueFunc, parentKey=null) {
         return
     }
     for (const [key, value] of Object.entries(obj)) {
-        if (value == null || typeof value === 'string') {
+        if (key == null || value == null || isNumber(key)) {
             continue
         } else if (looksLikeSpell(key, value)) {
             keyValueFunc(key, value, parentKey)
         } else if (isObject(value)) {
             forEachFoundAbility(value, keyValueFunc, key)
         }
-        
     }
+}
+export function getAllSpellsByNameFromObject(obj) {
+    const spells = {};
+
+    forEachFoundAbility(obj, (name, body) => {
+        const cleanName = name.replace(/[~<>]/g, "").trim();
+        spells[cleanName] = body;
+    });
+
+    return spells;
 }
 export function assertAbilityHasCorrectValues(name, body) {
     const err = (msg) => {

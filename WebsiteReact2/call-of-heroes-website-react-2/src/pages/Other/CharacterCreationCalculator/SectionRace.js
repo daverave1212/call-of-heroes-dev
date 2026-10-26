@@ -3,13 +3,12 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import { ClassPageV2, CCRacePage } from "../../../components/InsertableTemplates/RaceClassComponents"
-import { getAllSpellsByName, getRace, splitArrayEvenly, useLocalStorageState } from "../../../utils"
-import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
 import { getSelectedAbilityNames, toggleSpellMaybePopup, useSectionRaceName, useSelectedAbilityNames } from "./CharacterData"
 import { getAllRaceNames, raceExists } from "../../../services/content-providers/RaceProvider"
 import { showToast } from "../../../services/dom/toaster"
+import { FEATURES, useFeatureItem } from "../../../services/content-providers/ContentProvider"
 
 
 
@@ -27,18 +26,7 @@ export default function SectionRace({ openPopup }) {
     const getSelectedRaceName = () => selectedRaceName
     
     function onRaceSelectorClick(raceName) {
-        const mySpells = getSelectedAbilityNames().map(name => getAllSpellsByName()[name])
-        const spellIsFromMyRace = s => s?.Origin?.includes(selectedRaceName)
-        const hasTalentsFromThisRace = mySpells.some(spellIsFromMyRace)
-
-        if (hasTalentsFromThisRace) {
-            showToast(`Note: You still have ${selectedRaceName} Talents selected.`)
-            // const wantsToResetRaceTalents = confirm("You are changing your Race! Reset the selected Race Talents?")
-            // if (wantsToResetRaceTalents) {
-            //     const mySpellsNoRaceTalents = mySpells.filter(s => !spellIsFromMyRace(s))
-            //     setSelectedSpellNames(mySpellsNoRaceTalents.map(s => s.Name))
-            // }
-        }
+        // TODO: Check somehow if you still have spells from the race and show a toast!
         setSelectedRaceName(raceName)
     }
 

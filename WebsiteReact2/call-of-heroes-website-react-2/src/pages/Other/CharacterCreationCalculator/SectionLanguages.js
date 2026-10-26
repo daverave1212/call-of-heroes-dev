@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Selector from "../../../components/Selector/Selector";
-import { getAllLanguages, getRace, splitArrayEvenly, useLocalStorageState } from "../../../utils";
+import { getAllLanguages, splitArrayEvenly, useLocalStorageState } from "../../../utils";
 import { QGTitle1 } from "../../Tools/TitleGenerator";
 import { useConstTotalStatsArray } from "./CharacterData";
 import { useLanguages, useSectionRaceName } from "./CharacterData";

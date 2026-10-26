@@ -10,7 +10,6 @@ import Orc from '../../databases/Core/Races/Orc.json'
 
 import cache from '../data-caching/cache'
 
-import OverallData from '../../databases/OverallData.json'
 import { getDocInCollection } from '../online-database/Database'
 import { classExists, getClassLocal } from './ClassProvider'
 import { FEATURES, getFeatureItemAsync, getFeatureItemLocal } from './ContentProvider'
@@ -36,13 +35,13 @@ const Races = {
 
 
 export function getAllRaceNames() {
-    return OverallData.Races
+    return Object.keys(Races)
 }
 export function getRaceLocal(raceName) {
     return Races[raceName]
 }
 export function raceExists(raceName) {
-    return OverallData.Races.includes(raceName)
+    return getAllRaceNames().includes(raceName)
 }
 
 export async function getRaceAsync(raceName) {
@@ -58,6 +57,18 @@ export async function getAllPremiumRaceNamesAsync() {
 let _allRaceSpellsCached = null;
 let _allRaceSpellsPromise = null;
 
+export function getAllRaceSpellsByNameLocal() {    // NOTE: This will not work for all spells all the time; if there's a cached obj, it returns it with potentially more spells!
+    if (_allRaceSpellsCached != null) {
+        return _allRaceSpellsCached
+    }
+    let spells = {}
+    for (const classObj of Object.values(Races)) {
+        spells = {...spells, ...getAllSpellsByNameFromObject(classObj)}
+    }
+
+    return spells
+}
+
 export function useConstAllRaceSpellsByName() {
     const [spells, setSpells] = useState(() => {
         if (_allRaceSpellsCached) return _allRaceSpellsCached;
@@ -68,7 +79,10 @@ export function useConstAllRaceSpellsByName() {
             const raceObj = getFeatureItemLocal(FEATURES.Races, raceName);
 
             if (raceObj) {
-                Object.assign(allSpells, getAllSpellsByNameFromObject(raceObj));
+                Object.assign(
+                    allSpells,
+                    getAllSpellsByNameFromObject(raceObj)
+                );
             }
         }
 
@@ -76,39 +90,9 @@ export function useConstAllRaceSpellsByName() {
     });
 
     useEffect(() => {
-        if (_allRaceSpellsCached) {
-            setSpells(_allRaceSpellsCached);
-            return;
-        }
-
         let cancelled = false;
 
-        if (!_allRaceSpellsPromise) {
-            _allRaceSpellsPromise = Promise.all(
-                getAllRaceNames().map(raceName =>
-                    getFeatureItemAsync(FEATURES.Races, raceName)
-                )
-            ).then(races => {
-                const allSpells = {};
-
-                for (const raceObj of races) {
-                    if (!raceObj) continue;
-
-                    Object.assign(
-                        allSpells,
-                        getAllSpellsByNameFromObject(raceObj)
-                    );
-                }
-
-                _allRaceSpellsCached = allSpells;
-                return allSpells;
-            }).catch(error => {
-                _allRaceSpellsPromise = null;
-                throw error;
-            });
-        }
-
-        _allRaceSpellsPromise
+        getAllRaceSpellsByNameAsync()
             .then(result => {
                 if (!cancelled) setSpells(result);
             })
@@ -120,6 +104,39 @@ export function useConstAllRaceSpellsByName() {
     }, []);
 
     return spells;
+}
+
+export async function getAllRaceSpellsByNameAsync() {
+    if (_allRaceSpellsCached) {
+        return _allRaceSpellsCached;
+    }
+
+    if (!_allRaceSpellsPromise) {
+        _allRaceSpellsPromise = Promise.all(
+            getAllRaceNames().map(raceName =>
+                getFeatureItemAsync(FEATURES.Races, raceName)
+            )
+        ).then(races => {
+            const allSpells = {};
+
+            for (const raceObj of races) {
+                if (!raceObj) continue;
+
+                Object.assign(
+                    allSpells,
+                    getAllSpellsByNameFromObject(raceObj)
+                );
+            }
+
+            _allRaceSpellsCached = allSpells;
+            return allSpells;
+        }).catch(error => {
+            _allRaceSpellsPromise = null;
+            throw error;
+        });
+    }
+
+    return _allRaceSpellsPromise;
 }
 
 window.getRaceAsync = getRaceAsync

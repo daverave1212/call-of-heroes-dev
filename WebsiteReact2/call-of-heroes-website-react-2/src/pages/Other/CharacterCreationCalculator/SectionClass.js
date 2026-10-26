@@ -3,23 +3,19 @@ import PageH2 from "../../../components/PageH2/PageH2"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import { ClassPage, ClassPageV2 } from "../../../components/InsertableTemplates/RaceClassComponents"
-import { addAbilityOrOpenPopup, getAllClasses, getAllSpellsByName, getBaseClasses, getPremiumClasses, groupBy, isSpellMinorTalent, isSpellUtilityTalent, isTalentTierNameMinor, isTalentTierNameUtility, splitArrayEvenly, useLocalStorageState } from "../../../utils"
+import { addAbilityOrOpenPopup, groupBy, isSpellMinorTalent, isSpellUtilityTalent, isTalentTierNameMinor, isTalentTierNameUtility, splitArrayEvenly, useLocalStorageState } from "../../../utils"
 import { classesRacesObjectToArrays } from "./CharacterCreationCalculator"
 import Selector from "../../../components/Selector/Selector"
 import { SelectorsByColumns } from "../Abilities"
 import { toggleSpellMaybePopup, useAllSpellsMetadata, useConstTotalAttributes, useLevel, useSectionClassName, useSectionClassSpecName, useSectionRaceName, useSelectedAbilityNames, useSelectedFontName } from "./CharacterData"
 import { KNOWN_ABILITIES } from "../../../services/game-lib/stat-calculations"
-import { ClassesBase, ClassesLegacy, ClassesPremium } from "../../../services/content-providers/AllRacesAndClasses"
 import Icon from "../../../components/Icon"
-
-
-const allSpells = getAllSpellsByName()
+import { getAllBaseClassNames, getAllPremiumClassNames } from "../../../services/content-providers/ClassProvider"
 
 export function selectSpellWithPopup({spell, metadata, spellNames, setSpellNames, openPopup, attributes={}}) {  // WARNING: attributes is never given
 
     function checkForIssues() {
-        const selectedClassSpells = spellNames.map(name => allSpells[name])
-        // const spellsByParentKey = groupBy(selectedClassSpells, spell => spell.ParentKey)
+        // TODO: Check issues?
         let foundIssue = null
         return foundIssue
     }
@@ -49,33 +45,22 @@ export function selectSpellWithPopup({spell, metadata, spellNames, setSpellNames
 
 export default function SectionClass({ openPopup }) {
 
-    const classesObj = getAllClasses()
-
     const [className, setClassName] = useSectionClassName()
     const [spellNames, setSpellNames] = useSelectedAbilityNames()
     const [spellsMetadata, setSpellsMetadata] = useAllSpellsMetadata()
 
-    console.log({className, classesObj})
-
-    const classesBaseData = Object.keys(ClassesBase).map(className => ({
+    const classesBaseData = getAllBaseClassNames().map(className => ({
         name: className,
         displayName: className,
         lock: 'none',
         src: `/Icons/Classes/${className}.png`
     }))
-    const classesPremiumData = Object.keys(ClassesPremium).map(className => ({
+    const classesPremiumData = getAllPremiumClassNames().map(className => ({
         name: className,
         displayName: <span>{ className } <Icon name="Premium" style={{marginTop: `calc(var(--selector-fs) * 0.15)`}}/></span>,
         lock: 'premium',
         src: `/Icons/Classes/${className}.png`
     }))
-    const classesLegacyData = Object.keys(ClassesLegacy).map(className => ({
-        name: className,
-        displayName: <span>{ className } <span className="light-gray">(Old)</span></span>,
-        lock: 'none',
-        src: `/Icons/Classes/${className}.png`
-    }))
-
 
 
     const selectorData = [...classesBaseData, ...classesPremiumData]

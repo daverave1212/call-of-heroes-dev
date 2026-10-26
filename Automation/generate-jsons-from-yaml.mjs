@@ -2,9 +2,15 @@
 
 // Use this script to convert all ./Design/ files to their JSON variant in WebsiteReact/call-of-heroes-react-static/src/databases
 // NOTE 1: This does NOT remove the < and ~ symbols from the spell names!
-// NOTE 2: This DOES YES fix the "Inherit" spells
 // NOTE 3: This DOES YES add the Name property to all Spells (or at least it should)
 
+
+/*
+    Removed:
+        - Removed inherit
+        - Removed recording abilities
+        - Removed OverallData
+*/
 
 import fs from 'fs'
 import * as yaml from 'yaml'
@@ -12,7 +18,7 @@ import path from 'path'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json' with { type: 'json' }
 import * as STATS_STATIC from './stats-constants.mjs'
-import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateAndFixMonstersFile, validateRace, assertAbilityHasCorrectValues, includesAny, deleteKeys, isObject, iterateObject, isString, capitalizeFirstLetter, previewObject, getAllSetsOfContent, branchContentIntoSets } from './automation-utils.mjs'
+import { accessObjectProp, addError, addNameToSpellsRecursively, assertAbilityHasCorrectProps, assertObjectHas, assertObjectHasNot, findAllYAMLFiles, forEachFoundAbility, getNErrorsFound, getObjectValueByFuzzyKey, isSpellName, looksLikeSpell, objectEntriesByFuzzyKey, readAndNormalizeYamlToJson, replaceAllWithExceptions, REPLACEMENTS, replaceOnly, STATUS_EFFECTS, stringHasAnyOfChars, validateClass, validateAndFixMonstersFile, validateRace, assertAbilityHasCorrectValues, includesAny, deleteKeys, isObject, iterateObject, isString, capitalizeFirstLetter, previewObject, getAllSetsOfContent, branchContentIntoSets, removeAllSpellTildes } from './automation-utils.mjs'
 
 import SETS from './sets-config.json' with { type: 'json' }
 
@@ -105,13 +111,9 @@ function stripPremiumContentOfFeatures(obj, { config, fileName, fileNameNoExt, f
 }
 
 // Polulated at runtime
-const basicAbilities = {}
-const allAbilitiesFound = {}
 const classRaceAbilities = {} 
 const weapons = {}
 const armors = {}
-const classes = []           // Polulated at runtime (Array<string>)
-const races = []             // Polulated at runtime (Array<string>)
 
 // Will be modified just below, for sets
 let filesToConvert = []
@@ -130,55 +132,15 @@ for (const [setId, config] of Object.entries(SETS)) {
 if (!shouldGenerateAll) {
     filesToConvert = filesToConvert.filter(({setName, relativePath, config, filePath}) => process.argv.some(arg => filePath.includes(arg)))
 }
-
-function normalizeInheritAbilities(dictToSearch) {
-
-    function getSwapTildeArrowsName(name) {
-        if (name.startsWith('<')) {
-            return '~' + name.slice(1, -1) + '~';
-        }
-        if (name.startsWith('~')) {
-            return '<' + name.slice(1, -1) + '>';
-        }
-        return name;
-    }
-
-    function findPreviouslyUsedAbility(name) {
-        if (allAbilitiesFound[name]) {
-            return allAbilitiesFound[name];
-        }
-        const swapped = getSwapTildeArrowsName(name);
-        if (allAbilitiesFound[swapped]) {
-            return allAbilitiesFound[swapped];
-        }
-        throw new Error(`Spell ${name} not found in previously mentioned spells [normalizeInheritAbilities].`);
-    }
-
-    for (const key of Object.keys(dictToSearch)) {
-        const subobj = dictToSearch[key];
-
-        if (subobj === null) {
-            continue;
-        }
-
-        if (typeof subobj === 'string' && subobj.trim().toLowerCase().startsWith('inherit')) {
-            dictToSearch[key] = findPreviouslyUsedAbility(key);
-            continue;
-        }
-
-        if (typeof subobj !== 'object' || Array.isArray(subobj)) {
-            continue;
-        }
-
-        normalizeInheritAbilities(subobj);
-    }
-}
-function maybeMakeSomeWordsMixins(subobj) {
+function maybeMakeSomeWordsMixins(subobj, parentKey=null) {
     if (subobj == null || subobj?._alreadyHasSomeWordsMixins) {
         return
     }
     const propsToCheck = ['Effect', 'Upgrade', 'Notes', 'EffectGreen', 'Downside', 'Combo']
     for (const prop of propsToCheck) {
+        if (isString(subobj)) {
+            console.log(`🤍 Found string key "${parentKey}" value "${subobj}"`)
+        }
         if (!(prop in subobj)) {
             continue
         }
@@ -250,6 +212,12 @@ function findAndRecordAllAbilities(fromDict, toDict, parentKey=null, origin='Unk
         if (toDict != null) {
             toDict[name] = body;
         }
+
+
+        // TODO: Fix the tildes cause it's making life hard.
+        // TODO: For each class, list what spells it has and their path and such. Might make things easier...
+
+
     })
 }
 
@@ -275,19 +243,26 @@ function branchCompositeMonsters(obj, params) {
 }
 const PROCESS_STRATEGIES = {
     'Feats': obj => {
-        findAndRecordAllAbilities(obj, allAbilitiesFound, null, 'Feats');
+        const objNoTildes = removeAllSpellTildes(obj)
+        return objNoTildes
     },
     'Font': obj => {
         forEachFoundAbility(obj, (name, spell) => {
             spell.ScrollPower = 'Auto'
             spell.HasMixins = true
         })
+        const objNoTildes = removeAllSpellTildes(obj)
+        return objNoTildes
     },
     'Armor': (obj, { fileName }) => {
         findAndRecordAllAbilities(obj, armors, null, fileName, null)
+        const objNoTildes = removeAllSpellTildes(obj)
+        return objNoTildes
     },
     'Weapon': (obj, { fileName }) => {
         findAndRecordAllAbilities(obj, weapons, null, fileName, null)
+        const objNoTildes = removeAllSpellTildes(obj)
+        return objNoTildes
     },
     'Prices': obj => {
         const weaponPricesKvp = Object.entries(weapons).map(([key, value]) => (
@@ -303,20 +278,24 @@ const PROCESS_STRATEGIES = {
             ...weaponPrices,
             ...armorPrices
         }
+        return obj
     },
 
     'Class': (obj, { fileName }) => {
         validateClass(obj)
-        classes.push(obj.Class)
-        findAndRecordAllAbilities(obj, classRaceAbilities, null, `Class/${obj.Class}`);
+        const objNoTildes = removeAllSpellTildes(obj)
+        findAndRecordAllAbilities(objNoTildes, classRaceAbilities, null, `Class/${objNoTildes.Class}`);
+        return objNoTildes
     },
     'Race': (obj, { fileName }) => {
         validateRace(obj)
-        races.push(obj.Race)
-        findAndRecordAllAbilities(obj, classRaceAbilities, null, `Race/${obj.Race}`);
+        const objNoTildes = removeAllSpellTildes(obj)
+        findAndRecordAllAbilities(objNoTildes, classRaceAbilities, null, `Race/${objNoTildes.Race}`);
+        return objNoTildes
     },
     'Monsters': (obj, { fileName }) => {
         validateAndFixMonstersFile(obj)
+        return obj
     }
 }
 function defaultOutputStrategy(obj, params={}) {
@@ -430,21 +409,17 @@ async function processFiles() {
             assertAbilityHasCorrectValues(name, body)
 
             // Normalize
-            maybeMakeSomeWordsMixins(body)
+            maybeMakeSomeWordsMixins(body, name)
             maybeAddStatusEffectDescriptions(body)
             const didAddHasMixins = maybeAddHasMixins(body)
             body.ParentKey = parentKey
             body.Origin = filePath
-
-            // Record
-            allAbilitiesFound[name] = body
         })
-        normalizeInheritAbilities(dictContent)
 
         // Apply the preprocessing strategy
         const processStrategyFuncs = objectEntriesByFuzzyKey(PROCESS_STRATEGIES, filePath)
         for (const [fuzzyKey, func] of processStrategyFuncs) {
-            func?.(dictContent, { fileName, fuzzyKey })
+            dictContent = func?.(dictContent, { fileName, fuzzyKey })
         }
 
         // Output
@@ -458,19 +433,8 @@ async function processFiles() {
         writeOutput(dictContent, { config: fileConfig, fileName, fileNameNoExt, fileDir, filePath })
     }
 
-    const overallData = {
-        Races: races,
-        Classes: classes
-    };
-
     if (shouldGenerateAll) {
         try {
-            fs.writeFileSync(
-                path.join(jsonRootFolder, 'OverallData.json'),
-                JSON.stringify(overallData, null, 4),
-                'utf-8'
-            );
-    
             fs.writeFileSync(
                 path.join(jsonRootFolder, 'ClassAndRaceAbilities.json'),
                 JSON.stringify(classRaceAbilities, null, 4),

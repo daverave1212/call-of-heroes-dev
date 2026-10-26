@@ -10,27 +10,24 @@ import armors from './databases//Items/Armors.json'
 import skills from './databases/Proficiencies.json'
 import abilities from './databases/Abilities.json'
 import prices from './databases/Items/Prices.json'
-import magicItems from './databases/Items/MagicItems.json'
-import overallData from './databases/OverallData.json'
-import { Races, Classes, ClassesBase, ClassesPremium, ClassesLegacy } from './services/content-providers/AllRacesAndClasses'
 import { useEffect, useState } from "react"
-import BasicAbilities from './databases/Abilities.json'
 import SpellFonts from './databases/SpellFonts.json'
 import Feats from './databases/Feats.json'
 import ClassAndRaceAbilities from './databases/ClassAndRaceAbilities.json'
 import { getChoiceAbilitiesObjects, setChoiceAbilitiesObjects } from "./pages/Other/CharacterCreationCalculator/CharacterData"
 import { MAIN_STAT_ALTERNATIVES_MAP, STAT_SYMBOLS } from "./services/game-lib/stat-calculations"
-import Spell, { VALID_SPELL_EFFECTS } from "./components/Spell/Spell"
+import Spell, { SpellByName, VALID_SPELL_EFFECTS } from "./components/Spell/Spell"
 import { VALID_SPELL_TOP_STATS } from './components/Spell/HelperComponents/SpellTopStats'
 import QuestGuardConfig from './QuestGuardConfig.json'
 
 import STATIC_SYMBOLS from './parse-text-symbols-static.json'
-import ManySpells, { SpellSortTypes } from "./components/Spell/ManySpells"
+import ManySpells, { ManySpellsByName, SpellSortTypes } from "./components/Spell/ManySpells"
 import SpellPDF from "./components/Spell/SpellPDF"
 import TwoColumns from "./components/TwoColumns/TwoColumns"
 import TableNormal from "./components/TableNormal/TableNormal"
 import { getRaceLocal } from "./services/content-providers/RaceProvider"
 import { getClassLocal } from "./services/content-providers/ClassProvider"
+import { getAllSpellsAsArrayLocal, getAllSpellsByNameLocal } from "./services/content-providers/SpellProvider"
 
 // ---------------- Spells Utilities ----------------
 const SPELL_PROPS_TO_PARSE = [
@@ -264,46 +261,7 @@ export function removeTildes(spellName) {
         return spellName.substring(1, spellName.length - 1)
     return spellName
 }
-export function addTildes(spellName) {
-    return `~${spellName}~`
-}
-let CACHED_BASIC_SPELLS_ARRAY = null
-export function getAllBasicSpellsAsArray() {
-    if (CACHED_BASIC_SPELLS_ARRAY == null) {
-        const spellArrays = spellsFromObject(abilities)
-        CACHED_BASIC_SPELLS_ARRAY = spellArrays
-    }
-    return CACHED_BASIC_SPELLS_ARRAY
-}
-export function getAllFontSpellsAsArray() {
-    return Object.values(SpellFonts).map(category => spellsFromObject(category)).flat()
-}
-let fontSpellsByNameCached = null
-export function getAllFontSpellsByName() {
-    if (fontSpellsByNameCached != null) {
-        return fontSpellsByNameCached
-    }
-    const spellsArray = getAllFontSpellsAsArray()
-    const spellsObj = Object.fromEntries(spellsArray.map(spell => [removeTildes(spell.Name), spell]))
-    return spellsObj
-}
 let allSpellsArrayCached = null
-export function getAllSpellsAsArray() {
-    if (allSpellsArrayCached != null) {
-        return allSpellsArrayCached
-    }
-    allSpellsArrayCached = []
-    const allFontSpells = getAllFontSpellsAsArray()
-    const allBasicSpells = getAllBasicSpellsAsArray()
-    const allFeats = getAllSpellsFromCategoriesObject(Feats)
-    const allClassAndRaceAbilities = spellsFromObject(ClassAndRaceAbilities)
-    allSpellsArrayCached = [...allFontSpells, ...allBasicSpells, ...allFeats, ...allClassAndRaceAbilities]
-    for (const spell of allSpellsArrayCached) {
-        maybeAssignScrollPower(spell)
-    }
-    return allSpellsArrayCached
-}
-window.getAllSpellsAsArray = getAllSpellsAsArray
 function autoAssignScrollPower(spell) {
     const actionPoints = getActionPointsByA(spell.A)
     const costNormalized = spell.Cost == null? '0 Mana': spell.Cost == 'Depends' || spell.Cost == 'Special'? '0 Mana': spell.Cost
@@ -340,30 +298,6 @@ function maybeAssignScrollPower(spell) {
         }
     }
 }
-let allSpellsCached = null
-export function getAllSpellsByName() {
-    const allSpells = getAllSpellsAsArray()
-    if (allSpellsCached != null) {
-        return allSpellsCached
-    }
-    allSpellsCached = {}
-    for (const spell of allSpells) {
-        if (allSpellsCached[spell.Name] == null) {
-            allSpellsCached[spell.Name] = spell
-        }
-    }
-    return allSpellsCached
-}
-window.getAllSpellsByName = getAllSpellsByName
-export function getSpellByName(name) {
-    if (name == null) {
-        throw `Null spell given by name to getSpellByName.`
-    }
-    if (name.startsWith('~')) {
-        name = name.substring(1, name.length - 1)
-    }
-    return getAllSpellsByName()[name]
-}
 let allSkillsCached = null
 export function getAllSkillsByName() {
     if (allSkillsCached != null) {
@@ -382,7 +316,7 @@ export function getAllScrollSpellNamesByPower() {
     if (scrollAbilitiesByPower != null) {
         return scrollAbilitiesByPower
     }
-    const spellsThatCanBeScrolls = getAllSpellsAsArray().filter(s => s.ScrollPower != null)
+    const spellsThatCanBeScrolls = getAllSpellsAsArrayLocal().filter(s => s.ScrollPower != null)
     scrollAbilitiesByPower = groupBy(spellsThatCanBeScrolls, s => s.ScrollPower)
     scrollAbilitiesByPower = mapObject(scrollAbilitiesByPower, ([scrollPower, spellsArr]) => ([scrollPower, spellsArr.map(spell => spell.Name)]))
     return scrollAbilitiesByPower
@@ -762,6 +696,19 @@ export function getAllSpellsByNameFromObject(obj) {
     });
 
     return spells;
+}
+export function getSpellFromObject(obj, spellName) {
+    let foundSpell = null;
+
+    forEachFoundAbility(obj, (name, body) => {
+        const cleanName = name.replace(/[~<>]/g, "").trim();
+
+        if (cleanName === spellName) {
+            foundSpell = body;
+        }
+    });
+
+    return foundSpell;
 }
 
 
@@ -1215,10 +1162,11 @@ export function addBonusToDamageText(text, bonus) {
 }
 window.addBonusToDamageText = addBonusToDamageText
 window.splitByNumbers = splitByNumbers
-export const $LESSER_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Lesser').map(spell => spell.Name)
-export const $MINOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Minor').map(spell => spell.Name)
-export const $MAJOR_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Major').map(spell => spell.Name)
-export const $GRAMD_SPELLS_NAMES = getAllBasicSpellsAsArray().filter(spell => spell.Degree == 'Grand').map(spell => spell.Name)
+// NOTE: TODO these are all deprecated!
+export const $LESSER_SPELLS_NAMES = []
+export const $MINOR_SPELLS_NAMES = []
+export const $MAJOR_SPELLS_NAMES = []
+export const $GRAMD_SPELLS_NAMES = []
 
 export const SKILLS_BY_GROUP = {
     'Physical': [
@@ -2796,25 +2744,6 @@ export function assertCorrectSpellFormat(spell) {
             error(`Spell ${spell.Name} Values property on DoubleTableNumbered has incorrect number of values (should be multiple of 2)`)
         }
     }
-
-}
-export function getAllClasses() {
-    return Classes
-}
-export function getBaseClasses() {
-    return ClassesBase
-}
-export function getPremiumClasses() {
-    return ClassesPremium
-}
-export function getLegacyClasses() {
-    return ClassesLegacy
-}
-export function getRace(raceName) {
-    return Races[raceName]
-}
-export function getClass(className) {
-    return Classes[className]
 }
 export function getAllLanguages() {
     return {
@@ -2838,14 +2767,12 @@ export function getAllLanguages() {
 }
 export function getClassRepresentativeIconName(classObj) {
     const firstSpellName = Object.keys(classObj['Starting Abilities'])[0]
-    const spellName = removeTildes(firstSpellName)
-    return spellName
+    return firstSpellName
 }
 export function getSpecRepresentativeIconFullPath(classObj, specName) {
     const specObject = classObj.Specs[specName]
     const firstSpellName = Object.keys(specObject['Starting Abilities'])[0]
-    const spellName = removeTildes(firstSpellName)
-    return getSpellIconPathByName(spellName)
+    return getSpellIconPathByName(firstSpellName)
 }
 
 export function getDefaultRaceAndClassSpellNames({ raceName, className, specName }) {
@@ -2854,9 +2781,9 @@ export function getDefaultRaceAndClassSpellNames({ raceName, className, specName
     const myClass = getClassLocal(className)
     const mySpec = myClass?.Specs?.[specName]
 
-    const myRaceBaseSpellNames = myRace == null? []: spellsFromObject(myRace['Starting Abilities']).map(s => removeTildes(s.Name))
-    const myClassBaseSpellNames = myClass == null? []: spellsFromObject(myClass['Starting Abilities']).map(s => removeTildes(s.Name))
-    const mySpecBaseSpellNames = mySpec == null? []: spellsFromObject(mySpec['Starting Abilities']).map(s => removeTildes(s.Name))
+    const myRaceBaseSpellNames = myRace == null? []: spellsFromObject(myRace['Starting Abilities'])
+    const myClassBaseSpellNames = myClass == null? []: spellsFromObject(myClass['Starting Abilities'])
+    const mySpecBaseSpellNames = mySpec == null? []: spellsFromObject(mySpec['Starting Abilities'])
 
     return [
         ...myRaceBaseSpellNames,
@@ -2865,31 +2792,8 @@ export function getDefaultRaceAndClassSpellNames({ raceName, className, specName
     ]
 
 }
-export function getAlMyRaceAndClassSpells({ raceName, className, specName, selectedClassSpellNames=[], selectedRaceSpellNames=[] }) {
-    const allSpells = getAllSpellsByName()
-
-    const myRace = getRace(raceName)
-    const myClass = getAllClasses()[className]
-    const mySpec = myClass?.Specs?.[specName]
-    
-    const myRaceBaseSpells = myRace == null? []: spellsFromObject(myRace['Starting Abilities'])
-    const myRaceFeats = selectedRaceSpellNames.map(name => allSpells[name])
-    const myClassBaseSpells = myClass == null? []: spellsFromObject(myClass['Starting Abilities'])
-    const mySpecBaseSpells = mySpec == null? []: spellsFromObject(mySpec['Starting Abilities'])
-    const myClassTalents = selectedClassSpellNames.map(name => allSpells[name])
-
-    const allMyRaceAndClassSpells = [
-        ...myRaceBaseSpells,
-        ...myRaceFeats,
-        ...myClassBaseSpells,
-        ...mySpecBaseSpells,
-        ...myClassTalents,
-    ]
-
-    return allMyRaceAndClassSpells
-}
 export function hasClassMana(className) {
-    const classObj = getAllClasses()[className]
+    const classObj = getClassLocal(className)
     const hasMana = classObj?.Spellcasting?.Type?.toLowerCase()?.includes?.('mana') == true
     const hasManaAmount = classObj.Spellcasting?.Mana?.Amount != null
     return hasMana && hasManaAmount
@@ -2928,7 +2832,7 @@ export const NO_MANA_SPELLCASTING = 'Non-Mana'
 export function getClassMana(classObjOrName) {
     let classObj = classObjOrName
     if (isString(classObjOrName)) {
-        classObj = getAllClasses()[className]
+        classObj = getClassLocal(className)
     }
     if (classObj?.Spellcasting?.Type == null) {
         console.log({classObj, Spellcasting: classObj?.Spellcasting})
@@ -3509,11 +3413,11 @@ function ComponentForSymbolConfig({ config, children }) {
         case 'a':
             return <a {...config.props}>{children}</a>
         case 'Spell':
-            return <Spell {...config.props}/>
+            return <SpellByName {...config.props}/>
         case 'Spells':
             console.teal(`Spells: `)
             console.log({config})
-            return <ManySpells spellNames={[config.props.spellName1, config.props.spellName2]}/>
+            return <ManySpellsByName spellNames={[config.props.spellName1, config.props.spellName2]}/>
         case 'SpellPDF':
             return <SpellPDF {...config.props}/>
         default:

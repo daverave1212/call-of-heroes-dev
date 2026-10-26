@@ -1,4 +1,5 @@
-import { addArrays, addManyObjects, addObjects, calculateString, capitalizeFirstLetter, getAllClasses, isNumber, isString, MANA_BASED_SPELLCASTING, mapObject, SPECIAL_MANA_BASED_SPELLCASTING, stringReplaceAllMany } from "../../utils"
+import { addArrays, addManyObjects, addObjects, calculateString, capitalizeFirstLetter, isNumber, isString, MANA_BASED_SPELLCASTING, mapObject, SPECIAL_MANA_BASED_SPELLCASTING, stringReplaceAllMany } from "../../utils"
+import { getClassLocal } from "../content-providers/ClassProvider.js"
 import { getRaceLocal } from "../content-providers/RaceProvider.js"
 import {
     MIGHT,
@@ -306,7 +307,7 @@ export function checkStatRequirements(stats, requirementStringCode) {
     return result
 }
 export function calculateBaseMaxManaByLevel(level=1, className) {
-    const selectedClass = getAllClasses()[className]
+    const selectedClass = getClassLocal(className)
     if (selectedClass == null) {
         console.error(`calculateBaseMaxManaByLevel: class named ${className} not found`)
         return 0
@@ -328,7 +329,7 @@ export function calculateAllAtributes({raceName, className, level, totalStats, b
         return {...ALL_ATTRIBUTES_0}
     }
     const raceObj = getRaceLocal(raceName)
-    const classObj = getAllClasses()[className]
+    const classObj = getClassLocal(className)
     const totalStatsArray = totalStats
     
     const baseAttributes = getBaseAttributes(raceObj)

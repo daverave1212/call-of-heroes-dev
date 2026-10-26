@@ -96,7 +96,6 @@ import V2Wickan from './databases/ClassesV2/Wickan.json'
 import V2Wizard from './databases/ClassesV2/Wizard.json'
 import { ClassPage } from './components/InsertableTemplates/RaceClassComponents';
 import RulesAll from './pages/Other/RulesAll';
-import ClassBalance from './pages/Meta/ClassBalance';
 import MagicFonts from './pages/Other/MagicFonts';
 import DictionaryGenerator from './pages/Tools/DictionaryGenerator';
 import BookCreator from './pages/BookCreator/BookCreator';
@@ -222,7 +221,6 @@ function App() {
 
           <Route path='/Meta/Admin' element={ <AdminPage/> }/>
           <Route path='/Meta/PatchNotes' element={ <PatchNotes/> }/>
-          <Route path='/Meta/ClassBalance' element={ <ClassBalance/> }/>
           <Route path='/Meta/Griffincraft' element={ <Griffincraft/> }/>
           <Route path='/Meta/Blog' element={ <Blog/> }/>
           <Route path='/Meta/BlogPage' element={ <BlogPage/> }/>

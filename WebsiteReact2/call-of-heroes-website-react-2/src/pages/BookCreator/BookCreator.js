@@ -2,7 +2,7 @@ import Spell from '../../components/Spell/Spell'
 import Column from '../../components/TwoColumns/Column'
 import TwoColumns from '../../components/TwoColumns/TwoColumns'
 import { testPDF } from '../../services/pdf-tools/pdf-tool'
-import { getOnlyEntry, getSpellByName, getValueByPath, isObject, isString, keepOnly, printToPDF } from '../../utils'
+import { getOnlyEntry, getValueByPath, isObject, isString, keepOnly, printToPDF } from '../../utils'
 import './PDFUnitsOverriding.css'
 import './BookCreator.css'
 

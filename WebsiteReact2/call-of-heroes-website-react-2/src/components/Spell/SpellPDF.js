@@ -3,7 +3,7 @@ import './Spell.css'
 import './SpellPDF.css'
 import Separator from './../Separator/Separator'
 import { useEffect, useRef, useState } from 'react'
-import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, removeTildes, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getNormalizedSpellName, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, getSpellByName, SYMBOLS, isNumber, copyToClipboardAsync, getAllSpellsByName, getAllWeaponsByName, getAllItemsByName } from '../../utils'
+import { parseTextWithSymbols, stringReplaceAllMany, getSpellIconPathByName, getUniqueSpellID, mapObject, insertBetweenAll, getVariantsForEachCollection, createKey, spellsFromObject, randomInt, assertCorrectSpellFormat, findBasicSpellByName, allEqual, getItemIconPathByName, isString, getDoubleTableTable, getDoubleTableNumberedTable, filterObject, getSpellValidTopStatsObject, hasSpellVariants, getSpellOrItemIconPath, parseAndNormalizeSpell, hexColorToRgbVector, SYMBOLS, isNumber, copyToClipboardAsync, getAllItemsByName } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -18,6 +18,7 @@ import { getSpellEffectsObjs } from '../../utils'
 import { SpellTop } from './HelperComponents/SpellTop'
 import { getSpellTags } from '../../utils'
 import { RenderEffect } from './HelperComponents/RenderEffect'
+import { useConstAllSpellsByName } from '../../services/content-providers/SpellProvider'
 
 /*
 If buttonText != null:
@@ -95,11 +96,14 @@ export default function SpellPDF({
     metadata
 }) {
 
+    const allSpells = useConstAllSpellsByName()
+    const allItems = getAllItemsByName()
+
     if (spell == null) {
         if (spellName != null) {
-            spell = getAllSpellsByName()[spellName]
+            spell = allSpells[spellName]
         } else if (itemName != null) {
-            spell = getAllItemsByName()[itemName]
+            spell = allItems[itemName]
         } else {
             return <div>ERROR: null spell given to component Spell.</div>
         }
@@ -163,7 +167,7 @@ export default function SpellPDF({
 
     const hasVariants = hasSpellVariants(spell)
     const uniqueID = getUniqueSpellID(Name)
-    const subspell = SubspellName != null? getSpellByName(SubspellName): null
+    const subspell = SubspellName != null? allSpells[SubspellName]: null
     
     const [tableHeaders, newTableValuePairs] =
         DoubleTable != null?

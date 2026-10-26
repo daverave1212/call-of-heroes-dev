@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Races, Classes } from '../../../services/content-providers/AllRacesAndClasses'
 import SmallStat from "../../../components/SmallStat/SmallStat";
 import Page from "../../../containers/Page/Page";
 import TwoColumns from "../../../components/TwoColumns/TwoColumns";
@@ -10,11 +9,10 @@ import './CharacterCreationCalculator.css'
 import { SpellTopIconSide } from "../../../components/Spell/Spell";
 import { CoolButton } from "../../../components/CoolButton/CoolButton";
 import HeroButton from "../../../components/HeroButton/HeroButton";
-import useConstWindowDimensions, { getAllClasses, getClassRepresentativeIconName, getSpellIconPathByName, isStringJSON, normalizeStringJSON, pasteFromClipboardAsync, splitArrayEvenly, uncapitalizeFirstLetter, useLocalStorageState } from "../../../utils";
+import useConstWindowDimensions, {getClassRepresentativeIconName, getSpellIconPathByName, isStringJSON, normalizeStringJSON, pasteFromClipboardAsync, splitArrayEvenly, uncapitalizeFirstLetter, useLocalStorageState } from "../../../utils";
 import Selector from "../../../components/Selector/Selector";
 import ManySpells from "../../../components/Spell/ManySpells";
 
-import overallData from '../../../databases/OverallData.json'
 import { connectFirestoreEmulator } from "firebase/firestore";
 import PageH2 from "../../../components/PageH2/PageH2";
 import Tabs from "../../../components/Tabs/Tabs";

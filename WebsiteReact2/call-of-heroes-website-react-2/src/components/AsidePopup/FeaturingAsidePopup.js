@@ -4,10 +4,12 @@ import './AsidePopup.css'
 import abilities from '../../databases/Abilities.json'
 import classAndRaceAbilities from '../../databases/ClassAndRaceAbilities.json'
 import quirks from '../../databases/Other/Quirks.json'
-import { getAllSpellsByName, spellWithName } from '../../utils'
+import { getSpellFromObject, spellWithName } from '../../utils'
 import Icon from '../Icon'
 import MonsterAbility from '../MonsterAbility/MonsterAbility'
 import PageH3 from '../PageH3/PageH3'
+import { getFontSpellsByName } from '../../services/content-providers/SpellProvider'
+import { getClassLocal } from '../../services/content-providers/ClassProvider'
 
 export default function FeaturingAsidePopup({featureToDisplay}) {
 
@@ -44,7 +46,7 @@ export default function FeaturingAsidePopup({featureToDisplay}) {
                 <AsideH3>Mana</AsideH3>
                 <AsideP>
                     Spend Mana to cast powerful Abilities!
-                    <Spell spell={getAllSpellsByName()['Frostfall']}/>
+                    <Spell spell={getFontSpellsByName()['Frostfall']}/>
                 </AsideP>
             </div>
             <div style={isThisFeatureDisplayedStyle('Plot Points')}>
@@ -76,23 +78,23 @@ export default function FeaturingAsidePopup({featureToDisplay}) {
                 <AsideP>
                     An Ability is <i>something someone can do</i> that is clearly delimited in an Ability block.
                 </AsideP>
-                <Spell spell={getAllSpellsByName()['Hail']}/>
+                <Spell spell={getSpellFromObject(getClassLocal('Warlock'), 'Hail')}/>
             </div>
             <div style={isThisFeatureDisplayedStyle('Talents')}>
                 <AsideH3>Talents</AsideH3>
                 <AsideP>
                     Each Level, Heroes can choose one Talent Ability from several options from their Class:
                 </AsideP>
-                <Spell spell={getAllSpellsByName()['Pyromancy']}/>
-                <Spell spell={getAllSpellsByName()['Hydromancy']}/>
+                <Spell spell={getSpellFromObject(getClassLocal('Wizard'), 'Pyromancy')}/>
+                <Spell spell={getSpellFromObject(getClassLocal('Wizard'), 'Hydromancy')}/>
             </div>
             <div style={isThisFeatureDisplayedStyle('Farming')}>
                 <AsideH3>Farming</AsideH3>
                 <AsideP>
                     Many Abilities allow you to <span className='nowrap'>"farm" <Icon name="Gold"/>Gold</span> or permanently improve your Hero!
                 </AsideP>
-                <Spell spell={spellWithName("Fool's Gold", {...classAndRaceAbilities["~Fool's Gold~"], Notes: null})}/>
-                <Spell spell={getAllSpellsByName()['Arcano Mantissa']}/>
+                <Spell spell={getSpellFromObject(getClassLocal('Wizard'), "Fool's Gold")}/>
+                <Spell spell={getSpellFromObject(getClassLocal('Warlock'), 'Drain Soul')}/>
             </div>
             <div style={isThisFeatureDisplayedStyle('Player Quirks')}>
                 <AsideH3>Player Quirks</AsideH3>

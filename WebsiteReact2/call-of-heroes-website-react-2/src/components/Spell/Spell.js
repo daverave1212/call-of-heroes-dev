@@ -2,7 +2,7 @@
 import './Spell.css'
 import Separator from '../Separator/Separator'
 import { useEffect, useRef, useState } from 'react'
-import { allEqual, assertCorrectSpellFormat, copyToClipboardAsync, createKey, findBasicSpellByName, getAllItemsByName, getAllSpellsByName, getAllWeaponsByName, getDoubleTableNumberedTable, getDoubleTableTable, getNormalizedSpellName, getSpellByName, getSpellOrItemIconPath, getSpellTopStatIconAndSpan, getSpellTopStatsIconsAndSpans, getUniqueSpellID, getVariantsForEachCollection, hasSpellVariants, insertBetweenAll, mapObject, mapObjectToArray, maybeWithPlus, parseAndNormalizeSpell, parseTextWithSymbols, randomInt, removeTildes, spellsFromObject, stringReplaceAllMany, SYMBOLS } from '../../utils'
+import { allEqual, assertCorrectSpellFormat, copyToClipboardAsync, createKey, getAllItemsByName, getDoubleTableNumberedTable, getDoubleTableTable, getSpellOrItemIconPath, getSpellTopStatIconAndSpan, getSpellTopStatsIconsAndSpans, getUniqueSpellID, getVariantsForEachCollection, hasSpellVariants, insertBetweenAll, mapObject, mapObjectToArray, maybeWithPlus, parseAndNormalizeSpell, parseTextWithSymbols, randomInt, spellsFromObject, stringReplaceAllMany, SYMBOLS } from '../../utils'
 import TableNormal from '../TableNormal/TableNormal'
 import html2canvas from 'html2canvas'
 import CopySpellButton from '../CopyButton/CopySpellButton'
@@ -13,10 +13,10 @@ import Icon from '../Icon'
 import EffectTable from '../TableNormal/EffectTable'
 import QuestGuardConfig from '../../QuestGuardConfig.json'
 import { ItemTop, SpellTop } from './HelperComponents/SpellTop'
-import SpellCard from './SpellCard'
 
 import './HelperComponents/SpellBorder.css'
 import SeparatorFancy from '../Separator/SeparatorFancy'
+import { useConstAllSpellsByName } from '../../services/content-providers/SpellProvider'
 
 export const VALID_SPELL_EFFECTS = [
     'Damage', 'PreEffectGreen',
@@ -35,6 +35,19 @@ If onClick != null:
     It will have onClick
 */
 
+export function SpellByName(props) {
+    const {spellName, itemName} = props
+
+    const allSpells = useConstAllSpellsByName()
+
+    const spellOrItem = itemName != null? getAllItemsByName()[spellName]: allSpells[spellName]
+
+    const newProps = {...props, spellOrItem }
+    delete newProps.spellName
+    delete newProps.itemName
+
+    return <Spell {...newProps}/>
+}
 export default function Spell(props) {
 
     let {
@@ -44,6 +57,7 @@ export default function Spell(props) {
         spell,
         style,
         
+        isSubspell=null,
         isItem=false,
         hasIcon=true,
         hasBorder=true,
@@ -60,12 +74,15 @@ export default function Spell(props) {
         metadata
     } = props
 
-    // return <SpellCard {...props}/>
+    if (spellName != null) {
+        throw `ERROR Spell: parameter "spellName" is deprecated on Spell. Use SpellByName`
+    }
+    if (itemName != null) {
+        throw `ERROR Spell: parameter "itemName" is deprecated on Spell. Use SpellByName`
+    }
 
     if (spell == null) {
-        if (spellName != null) {
-            spell = getAllSpellsByName()[spellName]
-        } else if (itemName != null) {
+        if (itemName != null) {
             spell = getAllItemsByName()[itemName]
         } else {
             return <div>ERROR: null spell given to component Spell.</div>
@@ -130,6 +147,8 @@ export default function Spell(props) {
         List,
     } = parsedSpell
 
+    IsSubspell = isSubspell ?? IsSubspell
+
     const SkillBonuses = parsedSpell['Skill Bonuses']
     const positiveBonusesEntries = Bonuses && Object.entries(Bonuses).filter(([name, value]) => value > 0)
     const negativeBonusesEntries = Bonuses && Object.entries(Bonuses).filter(([name, value]) => value < 0)
@@ -145,7 +164,6 @@ export default function Spell(props) {
 
     const hasVariants = hasSpellVariants(spell)
     const uniqueID = getUniqueSpellID(Name)
-    const subspell = SubspellName != null? getSpellByName(SubspellName): null
     const hasButton = onClick != null
     const finalButtonText = buttonText ?? (isSelected? 'Unselect': 'Select')
     const hasEffectsOrMore = !allEqual([Effect, EffectGreen, Downside, Upgrade, Notes, Alternatives], null)
@@ -256,7 +274,6 @@ export default function Spell(props) {
                         paddingTop: '0.5rem',
                         paddingBottom: '0.5rem'
                     }}/> }
-                    {/* { IsSubspell != false && <SeparatorFancy/> } */}
                 </>) }
 
                 <div className='spell-effects-box flex column gap-1'>
@@ -397,7 +414,9 @@ export default function Spell(props) {
                             <div style={{height: '1rem'}}></div>
                         </div>
                     )}
-                    { subspell != null && <Spell spell={{...subspell, IsSubspell: true}} hasCopyButton={false} hasBorder={false} showTopStats={false}/>}
+                    { SubspellName != null && (
+                        <SpellByName spellName={SubspellName} isSubspell={true} hasBorder={false} showTopStats={false}/>
+                    )}
                 </div>
                 { hasCopyButton === true && <CopySpellButton elementId={uniqueID} shouldAddBorder={true}/> }
             </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllClasses, getAlMyRaceAndClassSpells, getAllSpellsByName, isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, getSpellIconPathByName, withToggledElement, getNumberDecimalsString, filterObject, maybeWithPlus, mapObject, isNumber, sum, SortSpellsBy, copyToClipboardAsync, pasteFromClipboardAsync, normalizeStringJSON, isStringJSON, cleanupObject, capitalizeFirstLetter } from "../../../utils"
+import { isString, spellsFromObject, useLocalStorageState, hasClassMana, getAllWeaponsByName, getAllArmorsByName, addObjects, getSpellReplacementName, reverseObject, getSpellIconPathByName, withToggledElement, getNumberDecimalsString, filterObject, maybeWithPlus, mapObject, isNumber, sum, SortSpellsBy, copyToClipboardAsync, pasteFromClipboardAsync, normalizeStringJSON, isStringJSON, cleanupObject, capitalizeFirstLetter } from "../../../utils"
 import ManySpells, { SpellSortTypes } from "../../../components/Spell/ManySpells"
 import PageH2 from "../../../components/PageH2/PageH2"
 import TextArea from "../../../components/TextArea/TextArea"
@@ -26,6 +26,7 @@ import { GrayFractionText } from "../../../components/GrayFractionText/GrayFract
 import classNames from "classnames"
 import TextAreaLocalStorage from "../../../components/TextArea/TextAreaLocalStorage"
 import { SaveCharacterButton } from "./HelperComponents/SaveCharacterButton"
+import { FEATURES, NONE, useFeatureItem } from "../../../services/content-providers/ContentProvider"
 
 export default function MyCharacter() {
 
@@ -42,6 +43,7 @@ export default function MyCharacter() {
 
     let [selectedRaceName] = useSectionRaceName()
     let [selectedClassName] = useSectionClassName()
+    
     
     let [selectedSpecName] = useSectionClassSpecName()
 
@@ -68,6 +70,8 @@ export default function MyCharacter() {
     
     
     let specialBonusNames = useConstAllSpecialBonusesNames()
+
+    const [selectedClassObj, isLoading] = useFeatureItem(selectedClassName == null? FEATURES.None: FEATURES.Classes, selectedClassName)
 
     const totalStats = useConstTotalStatsArray()
     const statLimit = getStatLimitByLevel(level)
@@ -111,7 +115,7 @@ export default function MyCharacter() {
         .map(name => ({...getAllWeaponsByName()[name]}))
         .map(w => ({...w, IsSubspell: true, Alternatives: null, Notes: null }))   // Makes weapons smaller
     const allMyArmors = armorNames.map(name => getAllArmorsByName()[name])
-    const selectedClassObj = selectedClassName == null? null: getAllClasses()[selectedClassName]
+    
     const maxMana = selectedClassName == null? 1: calculateBaseMaxManaByLevel(level, selectedClassName)
     const attributes = calculateAllAtributes({ raceName: selectedRaceName, className: selectedClassName, level, totalStats, bonuses, specialBonusNames })
     const usedSkillPoints = sum(Object.values(manualSkillBonuses).filter(val => val > 0))
@@ -380,7 +384,7 @@ export default function MyCharacter() {
                 <HealthBar/>
                 { selectedClassName && hasClassMana(selectedClassName) && (<ManaBar/>) }
                 <SmallStat onClick={() => setStatNameToChange('Known Abilities')} className="column" name="Extra Minor & Utility Talents">{attributes[KNOWN_ABILITIES]} {attributes[KNOWN_ABILITIES] == 1? 'Ability': 'Abilities'}</SmallStat>
-                { selectedClassName != null && (
+                { selectedClassObj != NONE && (
                     <div className="margin-top-half">
                         { selectedClassObj.Spellcasting?.Mana?.Regain != null && (
                             <p>{ selectedClassObj.Spellcasting?.Mana?.Regain }</p>

@@ -14,13 +14,17 @@ export const FEATURES = {
     Races: 'races',
     Classes: 'classes',
     Other: 'other',
-    Items: 'items'
+    Items: 'items',
+    None: 'none'
 }
+
+export const NONE = 'none'
 
 
 export function featureItemExists(featureName, itemName) {
     console.log(`Checking feature item ${featureName} ${itemName} exists...`)
     switch (featureName) {
+        case 'none': return true
         case 'races': return raceExists(itemName)
         case 'classes': return classExists(itemName)
         case 'other': return otherExists(itemName)
@@ -32,6 +36,7 @@ export function featureItemExists(featureName, itemName) {
 }
 export function getFeatureItemLocal(featureName, itemName) {
     switch (featureName) {
+        case 'none': return NONE
         case 'races': return getRaceLocal(itemName)
         case 'classes': return getClassLocal(itemName)
         case 'other': return getOtherLocal(itemName)    // E.g. 'Monsters'
@@ -61,6 +66,7 @@ export async function getFeatureItemAsync(featureName, name) {
     }
     switch (featureName) {
         // Normal
+        case 'none': return NONE
         case 'races':
         case 'classes':
             const setName = itemLocalVersion.Set ?? itemLocalVersion.set ?? 'basic'

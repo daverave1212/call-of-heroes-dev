@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import TwoColumns from "../../../components/TwoColumns/TwoColumns"
 import Column from "../../../components/TwoColumns/Column"
 import SmallStat from "../../../components/SmallStat/SmallStat"
-import { getClass, getNumberPartsString, getStatIconPathByStatName, includesOrViceversa, useConstIsPortrait, useLocalStorageState } from "../../../utils"
+import { getNumberPartsString, getStatIconPathByStatName, includesOrViceversa, useConstIsPortrait, useLocalStorageState } from "../../../utils"
 import Page from "../../../containers/Page/Page"
 import { QGTitle1 } from "../../Tools/TitleGenerator"
 import Icon from "../../../components/Icon"
@@ -16,6 +16,7 @@ import { BigStatInput } from "../../../components/BigStat/BigStatInput"
 import { ExperienceSlider } from "../../../components/Other/ExperienceSlider"
 import { getRaceLocal } from "../../../services/content-providers/RaceProvider"
 import { GrayFractionText } from "../../../components/GrayFractionText/GrayFractionText"
+import { getClassLocal } from "../../../services/content-providers/ClassProvider"
 
 export default function SectionStats() {
 
@@ -38,11 +39,12 @@ export default function SectionStats() {
 
     console.log({bonuses})
 
-    const myRace = getRaceLocal(selectedRaceName)
-    const myClass = getClass(selectedClassName)
-    const exactStats = myRace?.['Custom Stat Array']
-    const statRequirementCode = myRace?.['Stat Requirements']
-    const ignoreStatRequirements = myRace?.['IgnoreStatRestrictions'] ?? false
+    const myRaceLocal = getRaceLocal(selectedRaceName)
+    const myClassLocal = getClassLocal(selectedClassName)
+
+    const exactStats = myRaceLocal?.['Custom Stat Array']
+    const statRequirementCode = myRaceLocal?.['Stat Requirements']
+    const ignoreStatRequirements = myRaceLocal?.['IgnoreStatRestrictions'] ?? false
     const levelError = checkLevel(level)
     const isLevelUpBlocked = selectedClassName == null || selectedRaceName == null
     
@@ -125,9 +127,9 @@ export default function SectionStats() {
 
     function LevelUpTable() {
         const everyLevel = {
-            ...myClass?.['Level Up']?.['Every Level'],
+            ...myClassLocal?.['Level Up']?.['Every Level'],
         }
-        if (myClass.Specs != null && level == 2) {
+        if (myClassLocal.Specs != null && level == 2) {
             everyLevel['Specialization'] = `Pick a Specialization!`
         }
         everyLevel[`Talent`] = 1   // Comes after Spec
@@ -188,7 +190,7 @@ export default function SectionStats() {
             <div className="center-content">
                 <QGTitle1 text="Stats" height={60}/>
                 <p>Use the numbers {DEFAULT_STAT_ARRAY.join(', ')} and distribute them as you like among the {DEFAULT_STAT_ARRAY.length} stats.</p>
-                <p>{ myRace && myRace?.Creation?.['Stat Restrictions'] != null && <span>Pay attention to your races's stat <i>restrictions</i>: {myRace?.Creation?.['Stat Restrictions']}</span> }</p>
+                <p>{ myRaceLocal && myRaceLocal?.Creation?.['Stat Restrictions'] != null && <span>Pay attention to your races's stat <i>restrictions</i>: {myRaceLocal?.Creation?.['Stat Restrictions']}</span> }</p>
             </div>
             <div className="center-content flex" style={{gap: '2rem'}}>
                 <div className="stats-selector flex row width-100">

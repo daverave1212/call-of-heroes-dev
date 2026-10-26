@@ -1,6 +1,5 @@
 import cache from '../data-caching/cache'
 
-import OverallData from '../../databases/OverallData.json'
 import { getSetFeatureId, getSetLiveVersionAsync, getSetsConfigAsync, isNewer, isSetFreeAsync, isSetPremiumAsync } from '../../utils'
 import { isSetUnavailableAsync } from '../auth/Auth'
 import { getDocInCollection } from '../online-database/Database'
