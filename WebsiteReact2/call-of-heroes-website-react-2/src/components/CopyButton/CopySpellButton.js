@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import html2canvas from 'html2canvas'
 import './CopySpellButton.css'
+import { fixSpellTitleRectForCopy } from '../Spell/HelperComponents/SpellTop'
 
 function drawOuterBorderOnCanvas(canvas) {
     const borderSize = 4
@@ -13,9 +14,10 @@ function drawOuterBorderOnCanvas(canvas) {
     ctx.strokeRect(0, 0, canvas.width, canvas.height)
 }
 
-export default function CopySpellButton({elementId, shouldAddBorder}) {
+export default function CopySpellButton({ elementId }) {
 
-    if (shouldAddBorder == null) shouldAddBorder = false
+    // if (shouldAddBorder == null) shouldAddBorder = false
+    const shouldAddBorder = false
 
     const [displayedIcon, setDisplayedIcon] = useState('copy')
 
@@ -27,7 +29,9 @@ export default function CopySpellButton({elementId, shouldAddBorder}) {
     function onCopyClick() {
         setDisplayedIcon('load')
         const domElement = document.getElementById(elementId)
-        html2canvas(domElement).then(canvas => {
+        html2canvas(domElement, {
+            onclone: fixSpellTitleRectForCopy
+        }).then(canvas => {
             document.body.appendChild(canvas)
 
             if (shouldAddBorder) {
@@ -54,7 +58,7 @@ export default function CopySpellButton({elementId, shouldAddBorder}) {
     return (
         <div className="relative" onClick={onCopyClick} style={{height: '0px'}}>
             <img style={{display: displayedIcon === 'copy' ? '' : 'none'}} className='copy-button' src='/Icons/UI/Copy.png'/>
-            <img style={{display: displayedIcon === 'load' ? '' : 'none'}} className='copy-button copy-button--rotating' src='/Icons/UI/CopyLoading.png'/>
+            <img style={{display: displayedIcon === 'copy' /* load */ ? '' : 'none'}} className='copy-button copy-button--rotating' src='/Icons/UI/CopyLoading.png'/>
         </div>
     )
 }

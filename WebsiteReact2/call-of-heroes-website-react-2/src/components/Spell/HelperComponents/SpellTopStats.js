@@ -6,16 +6,16 @@ import KeywordTag from './KeywordTag';
 import './SpellTopStats.css'
 
 export function SpellTopStats({ className, tags, keywords }) {
-    const { A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP, Name } = tags;
+    const { Name, A, DisplayA, Cost, Range, Cooldown, Duration, Requirement, DisplayRequirement, Replacement, Hands, Stat, Special, Price, XP } = tags;
     
     const validSpellTopTags = getSpellTopStatsIconsAndSpans(tags);
 
     function getDisplayA() {
         const usedA = DisplayA != null ?
-            DisplayA
+                DisplayA
             : A != null ?
                 A
-                : null;
+            : null;
         if (isNumber(usedA)) {
             return `${usedA} Action Points`;
         }
@@ -24,7 +24,6 @@ export function SpellTopStats({ className, tags, keywords }) {
 
     const parsedKeywords = getSpellTags({ Tags: keywords });
 
-    // TODO: Use getSpellTopStatsIconsAndSpans from utils here...
     return (
         <div className='relative'>
             <div className={`spell-top-stats text-font smaller-font ${className}`}>

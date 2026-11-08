@@ -8,7 +8,23 @@ import './SpellTitle.css'
 import './SpellTop.css'
 import './SpellIcon.css'
 
+export function fixSpellTitleRectForCopy(domClone) {
+    const originalRects = domClone.querySelectorAll(".spell-title-rect");
+    const clonedRects = domClone.querySelectorAll(".spell-title-rect");
 
+    clonedRects.forEach((clonedRect, index) => {
+        const originalRect = originalRects[index];
+        if (!originalRect) return;
+
+        const height = originalRect.getBoundingClientRect().height;
+        clonedRect.style.height = `${height}px`;
+    });
+
+    // const copyButtons = Array.from(domClone.querySelectorAll('.copy-button'))
+    // copyButtons.forEach((btn, i) => {
+    //     btn.remove()
+    // })
+}
 
 
 export function SpellTop({
@@ -17,8 +33,12 @@ export function SpellTop({
     if (spell == null) {
         return <div style={{ color: 'red' }}>Error</div>;
     }
-
+    
     const obj = item != null ? item : spell;
+    if (spell.Name?.includes('Amulet')) {
+        console.log({obj, A})
+    }
+
     if (hasIcon === false) {
         return (
             <div className='spell-top'>

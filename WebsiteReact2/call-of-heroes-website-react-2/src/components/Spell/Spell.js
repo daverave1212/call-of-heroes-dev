@@ -51,6 +51,9 @@ export function SpellByName(props) {
 export default function Spell(props) {
 
     let {
+        className,
+        id,
+
         spellName,
         itemName,
 
@@ -153,7 +156,7 @@ export default function Spell(props) {
     const positiveBonusesEntries = Bonuses && Object.entries(Bonuses).filter(([name, value]) => value > 0)
     const negativeBonusesEntries = Bonuses && Object.entries(Bonuses).filter(([name, value]) => value < 0)
 
-    if (Name?.includes('Scroll')) {
+    if (Name?.includes('Amulet')) {
         console.log({Name, parsedSpell, spell})
     }
 
@@ -243,7 +246,8 @@ export default function Spell(props) {
 
 
     return (
-        <div data-selectable={isSelected != null} id={uniqueID} style={style} className={classNames(
+        <div data-selectable={isSelected != null} id={id ?? uniqueID} style={style} className={classNames(
+            className,
             'spell',
             'text-font',
             'with-simple-border',

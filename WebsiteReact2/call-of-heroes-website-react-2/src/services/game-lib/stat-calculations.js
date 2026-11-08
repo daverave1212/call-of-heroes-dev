@@ -34,6 +34,9 @@ export function getAvailableStatPointsByLevel(level) {
     return 3 + level
 }
 export function getBaseAttributes(raceObj) {
+    if (raceObj == null) {
+        throw new Error(`getBaseAttributes: raceObj is null.`)
+    }
     return {
         [MAX_HEALTH]: raceObj.Stats['Base Health'],
         [MOVEMENT_SPEED]: 4,
@@ -331,6 +334,8 @@ export function calculateAllAtributes({raceName, className, level, totalStats, b
     const raceObj = getRaceLocal(raceName)
     const classObj = getClassLocal(className)
     const totalStatsArray = totalStats
+
+    console.log({raceName, raceObj})
     
     const baseAttributes = getBaseAttributes(raceObj)
     const bonusAttributesFromStats = calculateStatsToBonusAttributesObject(totalStatsArray)

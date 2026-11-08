@@ -5,6 +5,7 @@
 .active .spell-icon-wrapper {
     border-radius: 0.25rem;
 }
+
 .spell-icon-wrapper {
     overflow: hidden;
     position: relative;
@@ -28,17 +29,16 @@
 .spell-icon-wrapper .secondary-icon-wrapper,
 .spell-icon-wrapper .secondary-icon-wrapper img {
     width: calc(var(--spell-icon-size) / 3);
+    z-index: var(--z-icon);
+    position: relative;
 }
 .spell-img-wrapper {
     position: relative;
     z-index: var(--z-icon);
+    padding: 1px;
+    overflow: hidden;
 }
-.spell-icon {
-    border-radius: 0.25rem !important;
-}
-.passive .spell-icon {
-    border-radius: 50% !important;
-}
+
 .tinted-icon-wrapper {
   --tint-rgb: 0 200 255;
   --tint-alpha: 0.5;
@@ -112,16 +112,20 @@
     z-index: var(--z-icon);
     position: absolute;
 }
-
-.passive .spell-top .left img {
-    border-radius: 50%;
-    padding: 1px;
+.spell-icon {
+    border-radius: 0.25rem !important;
+    width: 100%;
+    z-index: var(--z-icon);
+    position: relative;
 }
-.active .spell-top .left img {
+.passive .spell-icon {
+    border-radius: 50% !important;
+    
+}
+.active .spell-icon {
     border-radius: 0px;
-    padding: 1px;
 }
-.spell.with-variants .spell-top .left img {
+.spell.with-variants .spell-icon {
     padding: 1px;
 }
 

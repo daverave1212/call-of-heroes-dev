@@ -111,6 +111,7 @@ import BlogPage from './pages/Meta/BlogPage.js';
 import CookiesPopup from './components/CookiesPopup/CookiesPopup.js';
 import TransitionGuidePage from './pages/Learn/TransitionGuidePage.js';
 import InstagramSpell from './pages/Meta/Marketing/InstagramSpell.js';
+import { LearnOverview } from './pages/Other/RulesExplained/LearnOverview.js';
 
 function App() {
 
@@ -162,7 +163,8 @@ function App() {
           <Route path="/Other/AreasOfEffect" element={ <AreasOfEffect/> }/>
           <Route path="/Other/Quirks" element={ <Quirks/> }/>
           
-          <Route path="/Other/Learn" element={ <Learn/> }/>
+          {/* <Route path="/Other/Learn" element={ <Learn/> }/> */}
+          <Route path="/Other/Learn" element={ <LearnOverview/> }/>
           <Route path="/Other/Rules" element={ <Rules/> }/>
           <Route path="/Other/RulesAll" element={ <RulesAll/> }/>
           <Route path="/Other/RulesExplained/RulesSectionPages/Questguard" element={ <Questguard/> }/>

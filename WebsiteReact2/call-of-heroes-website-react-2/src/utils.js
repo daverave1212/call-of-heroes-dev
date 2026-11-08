@@ -595,7 +595,7 @@ export function getSpellTopStats(spell) {
     if (stats.DisplayRequirement != null) {
         delete stats.Requirement
     }
-    return stats
+    return filterObject(stats, ([key, value]) => value != null)
 }
 window.getSpellTopStats = getSpellTopStats
 export function getSpellTopStatIconAndSpan(name, value) {
@@ -653,6 +653,7 @@ export function getSpellTopStatsIconsAndSpans(spell) {
     const statsArraySorted = sortObjectArrayByKeyInOrder(statsArray, 'name', VALID_SPELL_TOP_STATS) // VALID_SPELL_TOP_STATS is the correct order
     return statsArraySorted
 }
+window.getSpellTopStatsIconsAndSpans = getSpellTopStatsIconsAndSpans
 export function isSpellName(dictKey) {
     return typeof dictKey === 'string' && (dictKey.startsWith('~') || dictKey.startsWith('<'));
 }
@@ -2683,6 +2684,7 @@ export function getNVariantsForVariantsForEachSpell(spell) {
     return elemsInCollection?.length ?? 0
 }
 export function getVariantsForEachCollection(collectionName) {
+    console.log({scrollNamesByPower: getAllScrollSpellNamesByPower()})
     switch (collectionName) {
         case '$OneHandedWeapons': return [...Object.keys(weapons['One-Handed Melee']), ...Object.keys(weapons['One-Handed Ranged'])].filter(weapon => weapon != 'Punch')
         case '$TwoHandedWeapons': return [...Object.keys(weapons['Two-Handed Melee']), ...Object.keys(weapons['Two-Handed Ranged'])]
@@ -2693,7 +2695,11 @@ export function getVariantsForEachCollection(collectionName) {
         case '$SpellsWithPower2': return getAllScrollSpellNamesByPower()[2]
         case '$SpellsWithPower3': return getAllScrollSpellNamesByPower()[3]
         case '$SpellsWithPower4': return getAllScrollSpellNamesByPower()[4]
-        case '$SpellsWithPower4+': return [...getAllScrollSpellNamesByPower()[4], ...getAllScrollSpellNamesByPower()[5], ...getAllScrollSpellNamesByPower()[6]]
+        case '$SpellsWithPower4+': return [
+            ...(getAllScrollSpellNamesByPower()[4] || []),
+            ...(getAllScrollSpellNamesByPower()[5] || []),
+            ...(getAllScrollSpellNamesByPower()[6] || [])
+        ]
         
         // 1 AP, 0 Mana             Once / Combat
         case '$LesserSpells': return $LESSER_SPELLS_NAMES
@@ -2789,7 +2795,7 @@ export function getDefaultRaceAndClassSpellNames({ raceName, className, specName
         ...myRaceBaseSpellNames,
         ...myClassBaseSpellNames,
         ...mySpecBaseSpellNames
-    ]
+    ].map(s => s.Name)
 
 }
 export function hasClassMana(className) {

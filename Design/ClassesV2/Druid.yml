@@ -278,6 +278,9 @@ Starting Abilities:       # 1
   
   Spell Ranks:
     A: Passive
+    IsIgnored: true
+    Combat Extras:
+      - Your Abilities have ranks.
     Effect: |
       Some of your Talents at higher Levels have higher _ranks_ for lower-Level ones, which are direct upgrades. You do ^not^ need to have the original lower-_rank_ Talent to get the higher-_rank_ one.
     Upgrade: Once you pick a higher _rank_ for a Talent, change the lower _rank_ Talent to a different one.
@@ -391,7 +394,8 @@ Talents:
           IsSubspell: true
           A: Half-Action
           Damage: 1d6 + Any Stat (Slash, Smash or Pierce)
-          EffectGreen: Critical Strike - if you roll maximum, apply a ~Combo~.
+          Effect: |
+            {CriticalStrike} if you roll maximum, apply a ~Combo~.
       Notes: |
         Your animal's Stats are 3/1/0/-1 spread as you like (for Rolls only).
         You can only cast _some_ Abilities while Shapeshifted.
@@ -435,9 +439,8 @@ Talents:
     Nativity:
       A: Passive
       Tags: [Mana]
-      Requirement: Can't activate in combat.
       Effect: At the midpoint of each _session_, regain up to 1 Mana.
-      Notes: Refers to the game sessions.
+      Notes: Refers to the game sessions. The Quest Master determines when they believe the midpoint is.
 
     Friend of the Forest:
       A: Half-Action

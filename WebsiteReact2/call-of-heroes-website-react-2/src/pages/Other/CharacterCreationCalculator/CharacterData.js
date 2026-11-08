@@ -428,6 +428,7 @@ export function useConstAllMyAbilities() {
     })
     const allMyAbilityNames = [...defaultAbilityNames, ...selectedAbilityNames]
     const allMyAbilities = allMyAbilityNames.map(name => allSpells[name]).filter(s => s != null)
+    console.log({defaultAbilityNames, selectedAbilityNames, allMyAbilities, allSpells})
     return allMyAbilities
 }
 export function useConstBonusesFromSpellsAndItems() {

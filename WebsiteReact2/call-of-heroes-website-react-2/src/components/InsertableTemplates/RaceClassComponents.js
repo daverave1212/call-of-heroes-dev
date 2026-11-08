@@ -606,8 +606,8 @@ export function RacePage({ raceName }) {
     return (
         <div>
 
-            <SideMenuFromRace theRace={theRace}/>
-            <Page isCentered={false}>
+            {/* <SideMenuFromRace theRace={theRace}/> */}
+            <Page isCentered={true}>
 
                 <RaceHeader theRace={theRace}/>
 
@@ -740,7 +740,7 @@ export function ClassPageV2({
 
     return (
         <div>            
-            <Page hasNoMargins={hasNoMargins}>
+            <Page hasNoMargins={hasNoMargins} isCentered={true}>
 
                 { hasHeader && (
                     <RaceHeader theClass={theClass} hueShift={hueShift}/>

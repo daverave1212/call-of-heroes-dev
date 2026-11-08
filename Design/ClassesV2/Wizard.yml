@@ -70,6 +70,9 @@ Starting Abilities:
 
   Comprehension:
     A: Passive
+    IsIgnored: true
+    Combat Extras:
+      - Can trade Talent for Font Spell or lower Level Talent
     Effect: |
       When you unlock a Talent tier, you may forgo getting a Talent from that tier to instead pick an extra Talent from a lower-Level tier or an extra Magic Font Spell.
     
@@ -94,29 +97,29 @@ Utility:
       Range: 5 meters
       Cooldown: Once / Encounter
       Effect: |
-          {DoWhat}
+          {Target} Choose any of the following to do with it:
+          {Diamond} {E1}
+          {Diamond} {E2}
+          {Diamond} {E3}
+          {Diamond} {E4}
       Notes: |
           {ElementNotes}
           Apply common sense. The QM has the final word on whether something is possible.
       Variants:
         - Element: Fire
-          DoWhat: |
-            Target a 2x2x2 meter cube containing Fire.
-            Choose any of the following to do with it:
-            {Diamond} Move it up to 5 meters in any direction
-            {Diamond} Extinguish it
-            {Diamond} Lower or increase its intensity or light emission by 50%
-            {Diamond} Roughly alter its shape and/or color
+          Target: Choose a 2x2x2 meter cube containing fire.
+          E1: Move it up to 5 meters in any direction
+          E2: Extinguish it
+          E3: Lower or increase its intensity or light emission by 50%
+          E4: Roughly alter its shape and/or color
           ElementNotes: A Unit that touches the fire takes 2 Damage.
           IconName: Control Elements
         - Element: Water
-          DoWhat: |
-            Target a 1 meter cube containing Water.
-            Choose any of the following to do with it:
-            {Diamond} Move it up to 5 meters in any direction
-            {Diamond} Destroy it
-            {Diamond} Lower or increase its temperature down to near-freezing or near-boiling
-            {Diamond} Roughly its shape and/or color
+          Target: Choose a 1 meter cube containing water.
+          E1: Move it up to 5 meters in any direction
+          E2: Destroy it
+          E3: Lower or increase its temperature down to near-freezing or near-boiling
+          E4: Roughly its shape and/or color
           IconName: Control Elements
           ElementNotes: Water is Hard Terrain. A Unit that touches near-boiling or near-freezing water takes 2 Damage.
 
@@ -336,6 +339,9 @@ Talents:
 
     Immensity of Knowledge:
       A: Passive
+      IsIgnored: true
+      Combat Extras:
+        - Can get Font Spells 2 Levels early
       Effect: |
         You can access Magic Font Spells 2 Levels earlier than the required Level.
       Upgrade: If you have Learn Scrolls, this also decreases the Level required by that Spell by 2.

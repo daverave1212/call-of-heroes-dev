@@ -92,6 +92,7 @@ export default function MyCharacter() {
     const { bonuses, sources: bonusesSources } = useConstAllBonuses()
     const { extras, combatExtras } = useConstAllAbilitiesAndItemsExtras()
 
+
     // Computed values
     const allDisplayedRaceAndClassSpells = []
     const spellsNotIgnored = allMyRaceAndClassSpells.filter(spell => spell.IsIgnored != true)
